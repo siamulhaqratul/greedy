@@ -3,7 +3,7 @@
 <head>
     <meta charset="utf-8">
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
-    <title>Unity WebGL Player | FruitGames</title>
+    <title>Unity WebGL Player | Greedy</title>
     <script>
         // Function to notify Unity of the minimize/restore state and connection status
         function sendEventToUnity(eventType) {
@@ -26,13 +26,13 @@
         });
 
         // Detect when the browser window loses or gains focus
-        // window.addEventListener('blur', function() {
-        //     sendEventToUnity('minimize');
-        // });
+        window.addEventListener('blur', function() {
+            sendEventToUnity('minimize');
+        });
 
-        // window.addEventListener('focus', function() {
-        //     sendEventToUnity('restore');
-        // });
+        window.addEventListener('focus', function() {
+            sendEventToUnity('restore');
+        });
 
         // Detect when the page is hidden or shown
         window.addEventListener('pagehide', function() {
@@ -51,11 +51,12 @@
         window.addEventListener('offline', function() {
             sendEventToUnity('offline');
         });
+
     </script>
 </head>
 <body style="text-align: center; padding: 0; border: 0; margin: 0;">
-    <canvas id="unity-canvas" width=450 height=450 style="width: 450px; height: 450px; background: url('Build/f2.jpg') center / cover"></canvas>
-    <script src="Build/f2.loader.js"></script>
+    <canvas id="unity-canvas" width=450 height=450 style="width: 450px; height: 450px; background: #000000"></canvas>
+    <script src="Build/g3.loader.js"></script>
     <script>
         if (/iPhone|iPad|iPod|Android/i.test(navigator.userAgent)) {
             // Mobile device style: fill the whole browser client area with the game canvas:
@@ -73,13 +74,13 @@
         }
 
         createUnityInstance(document.querySelector("#unity-canvas"), {
-            dataUrl: "Build/f2.data",
-            frameworkUrl: "Build/f2.framework.js",
-            codeUrl: "Build/f2.wasm",
+            dataUrl: "Build/g3.data",
+            frameworkUrl: "Build/g3.framework.js",
+            codeUrl: "Build/g3.wasm",
             streamingAssetsUrl: "StreamingAssets",
-            companyName: "Khalifa",
-            productName: "FruitGames",
-            productVersion: "1",
+            companyName: "DefaultCompany",
+            productName: "Greedy",
+            productVersion: "1.0",
             // matchWebGLToCanvasSize: false, // Uncomment this to separately control WebGL canvas render size and DOM element size.
             // devicePixelRatio: 1, // Uncomment this to override low DPI rendering on high DPI displays.
         }).then((unityInstance) => {
