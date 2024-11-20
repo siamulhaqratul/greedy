@@ -55,8 +55,8 @@
     </script>
 </head>
 <body style="text-align: center; padding: 0; border: 0; margin: 0;">
-    <canvas id="unity-canvas" width=450 height=450 style="width: 450px; height: 450px; background: url('Build/greedy.jpg') center / cover"></canvas>
-    <script src="Build/greedy.loader.js"></script>
+    <canvas id="unity-canvas" width=450 height=450 style="width: 450px; height: 450px; background: url('Build/g3.jpg') center / cover"></canvas>
+    <script src="Build/g3.loader.js"></script>
     <script>
         if (/iPhone|iPad|iPod|Android/i.test(navigator.userAgent)) {
             // Mobile device style: fill the whole browser client area with the game canvas:
@@ -74,11 +74,11 @@
         }
 
         createUnityInstance(document.querySelector("#unity-canvas"), {
-            dataUrl: "Build/greedy.data",
-            frameworkUrl: "Build/greedy.framework.js",
-            codeUrl: "Build/greedy.wasm",
+            dataUrl: "Build/g3.data",
+            frameworkUrl: "Build/g3.framework.js",
+            codeUrl: "Build/g3.wasm",
             streamingAssetsUrl: "StreamingAssets",
-            companyName: "DefaultCompany",
+            companyName: "KhalifaTech",
             productName: "Greedy",
             productVersion: "1.0",
             // matchWebGLToCanvasSize: false, // Uncomment this to separately control WebGL canvas render size and DOM element size.
