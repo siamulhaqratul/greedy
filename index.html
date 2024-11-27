@@ -5,60 +5,52 @@
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
     <title>Unity WebGL Player | Greedy</title>
     <script>
-        // Function to notify Unity of the minimize/restore state and connection status
+        // Function to notify Unity of the minimize/restore state and other events
         function sendEventToUnity(eventType) {
-            console.log("Sending event to Unity: " + eventType);
-            var unityInstance = window.unityInstance;
-            if (unityInstance) {
-                unityInstance.SendMessage('MinimizeRestoreHandler', 'OnBrowserMinimizeRestore', eventType);
-            } else {
-                console.log("Unity instance not found.");
-            }
+    console.log("Sending event to Unity: " + eventType);
+    const unityInstance = window.unityInstance;
+
+    if (unityInstance) {
+        try {
+            // Send the event to both handlers
+            unityInstance.SendMessage('VisibleHandle', 'OnBrowserVisible', eventType);
+            unityInstance.SendMessage('MinimizeRestoreHandler', 'OnBrowserMinimizeRestore', eventType);
+        } catch (error) {
+            console.error("Failed to send message to Unity: ", error);
         }
+    } else {
+        console.warn("Unity instance not found.");
+    }
+}
 
-        // Detect when the page becomes visible or hidden
-        document.addEventListener('visibilitychange', function() {
-            if (document.hidden) {
-                sendEventToUnity('minimize');
-            } else {
-                sendEventToUnity('restore');
-            }
-        });
+document.addEventListener('visibilitychange', function () {
+    if (document.hidden) {
+        sendEventToUnity('minimize');
+    } else {
+        sendEventToUnity('loadGame');
+    }
+});
 
-        // Detect when the browser window loses or gains focus
-        window.addEventListener('blur', function() {
-            sendEventToUnity('minimize');
-        });
+window.addEventListener('blur', function () {
+    sendEventToUnity('minimize');
+});
 
-        window.addEventListener('focus', function() {
-            sendEventToUnity('restore');
-        });
+window.addEventListener('focus', function () {
+    sendEventToUnity('restore');
+});
 
-        // Detect when the page is hidden or shown
-        window.addEventListener('pagehide', function() {
-            sendEventToUnity('minimize');
-        });
+window.addEventListener('online', function () {
+    sendEventToUnity('online');
+});
 
-        window.addEventListener('pageshow', function() {
-            sendEventToUnity('restore');
-
-        });
-
-        // Detect online and offline status
-        window.addEventListener('online', function() {
-            sendEventToUnity('online');
-        });
-
-        window.addEventListener('offline', function() {
-            sendEventToUnity('offline');
-        });
-     
-      
+window.addEventListener('offline', function () {
+    sendEventToUnity('offline');
+});
     </script>
 </head>
 <body style="text-align: center; padding: 0; border: 0; margin: 0;">
-    <canvas id="unity-canvas" width=450 height=450 style="width: 450px; height: 450px; background: url('Build/g4.jpg') center / cover"></canvas>
-    <script src="Build/g4.loader.js"></script>
+    <canvas id="unity-canvas" width=450 height=450 style="width: 450px; height: 450px; background: url('Build/g9.jpg') center / cover"></canvas>
+    <script src="Build/g9.loader.js"></script>
     <script>
         if (/iPhone|iPad|iPod|Android/i.test(navigator.userAgent)) {
             // Mobile device style: fill the whole browser client area with the game canvas:
@@ -76,15 +68,13 @@
         }
 
         createUnityInstance(document.querySelector("#unity-canvas"), {
-            dataUrl: "Build/g4.data",
-            frameworkUrl: "Build/g4.framework.js",
-            codeUrl: "Build/g4.wasm",
+            dataUrl: "Build/g9.data",
+            frameworkUrl: "Build/g9.framework.js",
+            codeUrl: "Build/g9.wasm",
             streamingAssetsUrl: "StreamingAssets",
             companyName: "KhalifaTech",
             productName: "Greedy",
             productVersion: "1.0",
-            // matchWebGLToCanvasSize: false, // Uncomment this to separately control WebGL canvas render size and DOM element size.
-            // devicePixelRatio: 1, // Uncomment this to override low DPI rendering on high DPI displays.
         }).then((unityInstance) => {
             window.unityInstance = unityInstance;
             console.log("Unity instance created.");
