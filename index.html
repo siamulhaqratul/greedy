@@ -7,71 +7,50 @@
     <script>
         // Function to notify Unity of the minimize/restore state and other events
         function sendEventToUnity(eventType) {
-            console.log("Sending event to Unity: " + eventType);
-            const unityInstance = window.unityInstance;
+    console.log("Sending event to Unity: " + eventType);
+    const unityInstance = window.unityInstance;
 
-            if (unityInstance) {
-                try {
-                    // Send the event to both handlers
-                    unityInstance.SendMessage('VisibleHandle', 'OnBrowserVisible', eventType);
-                    unityInstance.SendMessage('MinimizeRestoreHandler', 'OnBrowserMinimizeRestore', eventType);
-                } catch (error) {
-                    console.error("Failed to send message to Unity: ", error);
-                }
-            } else {
-                console.warn("Unity instance not found.");
-            }
+    if (unityInstance) {
+        try {
+            // Send the event to both handlers
+            unityInstance.SendMessage('VisibleHandle', 'OnBrowserVisible', eventType);
+            unityInstance.SendMessage('MinimizeRestoreHandler', 'OnBrowserMinimizeRestore', eventType);
+        } catch (error) {
+            console.error("Failed to send message to Unity: ", error);
         }
+    } else {
+        console.warn("Unity instance not found.");
+    }
+}
 
-        // Track the last sent event to prevent redundant calls
-        let lastEvent = null;
+document.addEventListener('visibilitychange', function () {
+    if (document.hidden) {
+        sendEventToUnity('minimize');
+    } else {
+        sendEventToUnity('loadGame');
+    }
+});
 
-        function handleVisibilityChange() {
-            if (document.hidden) {
-                if (lastEvent !== 'minimize') {
-                    sendEventToUnity('minimize');
-                    lastEvent = 'minimize';
-                }
-            } else {
-                if (lastEvent !== 'restore') {
-                    sendEventToUnity('restore');
-                    sendEventToUnity('loadGame'); // Trigger loading only when visible
-                    lastEvent = 'restore';
-                }
-            }
-        }
+window.addEventListener('blur', function () {
+    sendEventToUnity('minimize');
+});
 
-        function handleWindowFocusBlur(isFocused) {
-            const eventType = isFocused ? 'restore' : 'minimize';
-            if (eventType !== lastEvent) {
-                sendEventToUnity(eventType);
-                lastEvent = eventType;
-            }
-        }
+window.addEventListener('focus', function () {
+    sendEventToUnity('restore');
+});
 
-        document.addEventListener('visibilitychange', handleVisibilityChange);
+window.addEventListener('online', function () {
+    sendEventToUnity('online');
+});
 
-        window.addEventListener('blur', () => handleWindowFocusBlur(false)); // When window loses focus
-        window.addEventListener('focus', () => handleWindowFocusBlur(true)); // When window gains focus
-
-        // Detect online/offline status (network status)
-        window.addEventListener('online', function () {
-            sendEventToUnity('online');
-        });
-
-        window.addEventListener('offline', function () {
-            sendEventToUnity('offline');
-        });
-
-        // Trigger minimize state on initial load
-        window.addEventListener('load', function () {
-            sendEventToUnity('minimize');
-        });
+window.addEventListener('offline', function () {
+    sendEventToUnity('offline');
+});
     </script>
 </head>
 <body style="text-align: center; padding: 0; border: 0; margin: 0;">
-    <canvas id="unity-canvas" width=450 height=450 style="width: 450px; height: 450px; background: url('Build/g7.jpg') center / cover"></canvas>
-    <script src="Build/g7.loader.js"></script>
+    <canvas id="unity-canvas" width=450 height=450 style="width: 450px; height: 450px; background: url('Build/New folder.jpg') center / cover"></canvas>
+    <script src="Build/New folder.loader.js"></script>
     <script>
         if (/iPhone|iPad|iPod|Android/i.test(navigator.userAgent)) {
             // Mobile device style: fill the whole browser client area with the game canvas:
@@ -89,9 +68,9 @@
         }
 
         createUnityInstance(document.querySelector("#unity-canvas"), {
-            dataUrl: "Build/g7.data",
-            frameworkUrl: "Build/g7.framework.js",
-            codeUrl: "Build/g7.wasm",
+            dataUrl: "Build/New folder.data",
+            frameworkUrl: "Build/New folder.framework.js",
+            codeUrl: "Build/New folder.wasm",
             streamingAssetsUrl: "StreamingAssets",
             companyName: "KhalifaTech",
             productName: "Greedy",
