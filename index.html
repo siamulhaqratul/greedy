@@ -5,7 +5,7 @@
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
     <title>Unity WebGL Player | Greedy</title>
     <script>
-        // Function to notify Unity of the minimize/restore state and other events
+        // Function to notify Unity of the minimize/restore state and connection status
         function sendEventToUnity(eventType) {
             console.log("Sending event to Unity: " + eventType);
             var unityInstance = window.unityInstance;
@@ -21,7 +21,7 @@
             if (document.hidden) {
                 sendEventToUnity('minimize');
             } else {
-                sendEventToUnity('loadGame'); // Load game only when visible
+                sendEventToUnity('restore');
             }
         });
 
@@ -34,6 +34,16 @@
             sendEventToUnity('restore');
         });
 
+        // Detect when the page is hidden or shown
+        window.addEventListener('pagehide', function() {
+            sendEventToUnity('minimize');
+        });
+
+        window.addEventListener('pageshow', function() {
+            sendEventToUnity('restore');
+
+        });
+
         // Detect online and offline status
         window.addEventListener('online', function() {
             sendEventToUnity('online');
@@ -42,6 +52,8 @@
         window.addEventListener('offline', function() {
             sendEventToUnity('offline');
         });
+     
+      
     </script>
 </head>
 <body style="text-align: center; padding: 0; border: 0; margin: 0;">
@@ -71,6 +83,8 @@
             companyName: "KhalifaTech",
             productName: "Greedy",
             productVersion: "1.0",
+            // matchWebGLToCanvasSize: false, // Uncomment this to separately control WebGL canvas render size and DOM element size.
+            // devicePixelRatio: 1, // Uncomment this to override low DPI rendering on high DPI displays.
         }).then((unityInstance) => {
             window.unityInstance = unityInstance;
             console.log("Unity instance created.");
