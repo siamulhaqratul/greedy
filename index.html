@@ -6,14 +6,14 @@
     <title>Unity WebGL Player | Greedy</title>
     <script>
         // Function to notify Unity of the minimize/restore state and other events
-        unction sendEventToUnity(eventType) {
+        function sendEventToUnity(eventType) {
             console.log("Sending event to Unity: " + eventType);
             const unityInstance = window.unityInstance;
 
             if (unityInstance) {
                 try {
                     // Send the event to both handlers
-                    unityInstance.SendMessage('VisibleHandle', 'OnBrowserMinimizeRestore', eventType);
+                    unityInstance.SendMessage('VisibleHandle', 'OnBrowserVisible', eventType);
                     unityInstance.SendMessage('MinimizeRestoreHandler', 'OnBrowserMinimizeRestore', eventType);
                 } catch (error) {
                     console.error("Failed to send message to Unity: ", error);
@@ -70,8 +70,8 @@
     </script>
 </head>
 <body style="text-align: center; padding: 0; border: 0; margin: 0;">
-    <canvas id="unity-canvas" width=450 height=450 style="width: 450px; height: 450px; background: url('Build/g6.jpg') center / cover"></canvas>
-    <script src="Build/g6.loader.js"></script>
+    <canvas id="unity-canvas" width=450 height=450 style="width: 450px; height: 450px; background: url('Build/g7.jpg') center / cover"></canvas>
+    <script src="Build/g7.loader.js"></script>
     <script>
         if (/iPhone|iPad|iPod|Android/i.test(navigator.userAgent)) {
             // Mobile device style: fill the whole browser client area with the game canvas:
@@ -89,9 +89,9 @@
         }
 
         createUnityInstance(document.querySelector("#unity-canvas"), {
-            dataUrl: "Build/g6.data",
-            frameworkUrl: "Build/g6.framework.js",
-            codeUrl: "Build/g6.wasm",
+            dataUrl: "Build/g7.data",
+            frameworkUrl: "Build/g7.framework.js",
+            codeUrl: "Build/g7.wasm",
             streamingAssetsUrl: "StreamingAssets",
             companyName: "KhalifaTech",
             productName: "Greedy",
