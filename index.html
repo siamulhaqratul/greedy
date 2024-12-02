@@ -48,8 +48,8 @@ window.addEventListener('offline', function () {
     </script>
 </head>
 <body style="text-align: center; padding: 0; border: 0; margin: 0;">
-    <canvas id="unity-canvas" width=450 height=450 style="width: 450px; height: 450px; background: url('Build/g20.jpg') center / cover"></canvas>
-    <script src="Build/g20.loader.js"></script>
+    <canvas id="unity-canvas" width=450 height=450 style="width: 450px; height: 450px; background: url('Build/g21.jpg') center / cover"></canvas>
+    <script src="Build/g21.loader.js"></script>
     <script>
         if (/iPhone|iPad|iPod|Android/i.test(navigator.userAgent)) {
             // Mobile device style: fill the whole browser client area with the game canvas:
@@ -67,9 +67,9 @@ window.addEventListener('offline', function () {
         }
 
         createUnityInstance(document.querySelector("#unity-canvas"), {
-            dataUrl: "Build/g20.data",
-            frameworkUrl: "Build/g20.framework.js",
-            codeUrl: "Build/g20.wasm",
+            dataUrl: "Build/g21.data",
+            frameworkUrl: "Build/g21.framework.js",
+            codeUrl: "Build/g21.wasm",
             streamingAssetsUrl: "StreamingAssets",
             companyName: "KhalifaTech",
             productName: "Greedy",
