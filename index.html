@@ -5,48 +5,39 @@
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
     <title>Unity WebGL Player | Greedy</title>
     <script>
-        // Function to notify Unity of the minimize/restore state and other events
+        // Function to notify Unity of the minimize/restore state and connection status
         function sendEventToUnity(eventType) {
-    console.log("Sending event to Unity: " + eventType);
-    const unityInstance = window.unityInstance;
-
-    if (unityInstance) {
-        try {
-            // Send the event to both handlers  
-            unityInstance.SendMessage('MinimizeRestoreHandler', 'OnBrowserMinimizeRestore', eventType);
-        } catch (error) {
-            console.error("Failed to send message to Unity: ", error);
+            console.log("Sending event to Unity: " + eventType);
+            var unityInstance = window.unityInstance;
+            if (unityInstance) {
+                unityInstance.SendMessage('MinimizeRestoreHandler', 'OnBrowserMinimizeRestore', eventType);
+            } else {
+                console.log("Unity instance not found.");
+            }
         }
-    } else {
-        console.warn("Unity instance not found.");
-    }
-}
 
-document.addEventListener('visibilitychange', function () {
-    if (document.hidden) {
-        sendEventToUnity('minimize');
-    } else {
-        sendEventToUnity('restore');
-    }
-});
+        document.addEventListener('visibilitychange', function() {
+            if (document.hidden) {
+                sendEventToUnity('minimize');
+            } else {
+                sendEventToUnity('restore');
+            }
+        });
 
-window.addEventListener('pagehide', function () {
-    sendEventToUnity('minimize');
-});
+        // Detect when the browser window loses or gains focus
+        // window.addEventListener('blur', function() {
+        //     sendEventToUnity('minimize');
+        // });
 
-window.addEventListener('pageshow', function () {
-    sendEventToUnity('restore');
-});
+        // window.addEventListener('focus', function() {
+        //     sendEventToUnity('restore');
+        // });
 
-window.addEventListener('online', function () {
-    sendEventToUnity('online');
-});
+        // Detect when the page is hidden or shown
+        window.addEventListener('pagehide', function() {
+            sendEventToUnity('minimize');
+        });
 
-<<<<<<< HEAD
-window.addEventListener('offline', function () {
-    sendEventToUnity('offline');
-});
-=======
         window.addEventListener('pageshow', function() {
             sendEventToUnity('restore');
         });
@@ -60,12 +51,12 @@ window.addEventListener('offline', function () {
             sendEventToUnity('offline');
         });
 
->>>>>>> parent of 0bbaba7 (socket)
+
     </script>
 </head>
 <body style="text-align: center; padding: 0; border: 0; margin: 0;">
-    <canvas id="unity-canvas" width=450 height=450 style="width: 450px; height: 450px; background: url('Build/g7.jpg') center / cover"></canvas>
-    <script src="Build/g7.loader.js"></script>
+    <canvas id="unity-canvas" width=450 height=450 style="width: 450px; height: 450px; background: url('Build/g9.jpg') center / cover"></canvas>
+    <script src="Build/g9.loader.js"></script>
     <script>
         if (/iPhone|iPad|iPod|Android/i.test(navigator.userAgent)) {
             // Mobile device style: fill the whole browser client area with the game canvas:
@@ -83,9 +74,9 @@ window.addEventListener('offline', function () {
         }
 
         createUnityInstance(document.querySelector("#unity-canvas"), {
-            dataUrl: "Build/g7.data",
-            frameworkUrl: "Build/g7.framework.js",
-            codeUrl: "Build/g7.wasm",
+            dataUrl: "Build/g9.data",
+            frameworkUrl: "Build/g9.framework.js",
+            codeUrl: "Build/g9.wasm",
             streamingAssetsUrl: "StreamingAssets",
             companyName: "KhalifaTech",
             productName: "Greedy",
