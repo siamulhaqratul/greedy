@@ -55,8 +55,8 @@
     </script>
 </head>
 <body style="text-align: center; padding: 0; border: 0; margin: 0;">
-    <canvas id="unity-canvas" width=450 height=450 style="width: 450px; height: 450px; background: url('Build/g2.jpg') center / cover"></canvas>
-    <script src="Build/g2.loader.js"></script>
+    <canvas id="unity-canvas" width=450 height=450 style="width: 450px; height: 450px; background: url('Build/g4.jpg') center / cover"></canvas>
+    <script src="Build/g4.loader.js"></script>
     <script>
         if (/iPhone|iPad|iPod|Android/i.test(navigator.userAgent)) {
             // Mobile device style: fill the whole browser client area with the game canvas:
@@ -74,9 +74,9 @@
         }
 
         createUnityInstance(document.querySelector("#unity-canvas"), {
-            dataUrl: "Build/g2.data",
-            frameworkUrl: "Build/g2.framework.js",
-            codeUrl: "Build/g2.wasm",
+            dataUrl: "Build/g4.data",
+            frameworkUrl: "Build/g4.framework.js",
+            codeUrl: "Build/g4.wasm",
             streamingAssetsUrl: "StreamingAssets",
             companyName: "KhalifaTech",
             productName: "Greedy",
