@@ -1,92 +1,41 @@
 <!DOCTYPE html>
 <html lang="en-us">
-<head>
+  <head>
     <meta charset="utf-8">
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
-    <title>Unity WebGL Player | Greedy</title>
+    <title>Unity Web Player | WebLoadingTest</title>
+  </head>
+  <body style="text-align: center; padding: 0; border: 0; margin: 0;">
+    <canvas id="unity-canvas" width=550 height=615 tabindex="-1" style="width: 550px; height: 615px; background: #FFFFFF"></canvas>
+    <script src="Build/e873e877dc2bec6111b37ace0c46dfdf.loader.js"></script>
     <script>
-        // Function to notify Unity of the minimize/restore state and connection status
-        function sendEventToUnity(eventType) {
-           // console.log("Sending event to Unity: " + eventType);
-            var unityInstance = window.unityInstance;
-            if (unityInstance) {
-                unityInstance.SendMessage('MinimizeRestoreHandler', 'OnBrowserMinimizeRestore', eventType);
-            } else {
-               // console.log("Unity instance not found.");
-            }
-        }
+      if (/iPhone|iPad|iPod|Android/i.test(navigator.userAgent)) {
+        // Mobile device style: fill the whole browser client area with the game canvas:
+        var meta = document.createElement('meta');
+        meta.name = 'viewport';
+        meta.content = 'width=device-width, height=device-height, initial-scale=1.0, user-scalable=no, shrink-to-fit=yes';
+        document.getElementsByTagName('head')[0].appendChild(meta);
 
-        document.addEventListener('visibilitychange', function() {
-            if (document.hidden) {
-                sendEventToUnity('minimize');
-            } else {
-                sendEventToUnity('restore');
-            }
-        });
+        var canvas = document.querySelector("#unity-canvas");
+        canvas.style.width = "100%";
+        canvas.style.height = "100%";
+        canvas.style.position = "fixed";
 
-        // Detect when the browser window loses or gains focus
-        // window.addEventListener('blur', function() {
-        //     sendEventToUnity('minimize');
-        // });
+        document.body.style.textAlign = "left";
+      }
 
-        // window.addEventListener('focus', function() {
-        //     sendEventToUnity('restore');
-        // });
-
-        // Detect when the page is hidden or shown
-        window.addEventListener('pagehide', function() {
-            sendEventToUnity('minimize');
-        });
-
-        window.addEventListener('pageshow', function() {
-            sendEventToUnity('restore');
-        });
-
-        // Detect online and offline status
-        window.addEventListener('online', function() {
-            sendEventToUnity('online');
-        });
-
-        window.addEventListener('offline', function() {
-            sendEventToUnity('offline');
-        });
-
-
+      createUnityInstance(document.querySelector("#unity-canvas"), {
+        arguments: [],
+        dataUrl: "Build/b32dc9f1528ba2a3b9b0407a5f5d21ca.data.br",
+        frameworkUrl: "Build/e4846f0f062c103fa1daf8b54e154225.framework.js.br",
+        codeUrl: "Build/12fa92685d0c68c8e78fdb61938cbe5f.wasm.br",
+        streamingAssetsUrl: "StreamingAssets",
+        companyName: "JohannesDeml",
+        productName: "WebLoadingTest",
+        productVersion: "1.4.0",
+        // matchWebGLToCanvasSize: false, // Uncomment this to separately control WebGL canvas render size and DOM element size.
+        // devicePixelRatio: 1, // Uncomment this to override low DPI rendering on high DPI displays.
+      });
     </script>
-</head>
-<body style="text-align: center; padding: 0; border: 0; margin: 0;">
-    <canvas id="unity-canvas" width=450 height=450 style="width: 450px; height: 450px; background: url('Build/g3.jpg') center / cover"></canvas>
-    <script src="Build/g3.loader.js"></script>
-    <script>
-        if (/iPhone|iPad|iPod|Android/i.test(navigator.userAgent)) {
-            // Mobile device style: fill the whole browser client area with the game canvas:
-            var meta = document.createElement('meta');
-            meta.name = 'viewport';
-            meta.content = 'width=device-width, height=device-height, initial-scale=1.0, user-scalable=no, shrink-to-fit=yes';
-            document.getElementsByTagName('head')[0].appendChild(meta);
-
-            var canvas = document.querySelector("#unity-canvas");
-            canvas.style.width = "100%";
-            canvas.style.height = "100%";
-            canvas.style.position = "fixed";
-
-            document.body.style.textAlign = "left";
-        }
-
-        createUnityInstance(document.querySelector("#unity-canvas"), {
-            dataUrl: "Build/g3.data",
-            frameworkUrl: "Build/g3.framework.js",
-            codeUrl: "Build/g3.wasm",
-            streamingAssetsUrl: "StreamingAssets",
-            companyName: "KhalifaTech",
-            productName: "Greedy",
-            productVersion: "1.0",
-        }).then((unityInstance) => {
-            window.unityInstance = unityInstance;
-           // console.log("Unity instance created.");
-        }).catch((message) => {
-           // console.error(message);
-        });
-    </script>
-</body>
+  </body>
 </html>
