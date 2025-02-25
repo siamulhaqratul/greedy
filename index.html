@@ -239,6 +239,7 @@
       }).then(function(unityInstance) {
         unityGame = unityInstance;
         loadingContainer.classList.add("finished");
+        window.unityInstance = unityInstance;
       }).catch(function(message) {
         alert(message);
       });
