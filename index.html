@@ -9,55 +9,6 @@
   <link rel="preload" href="Build/g2.framework.js.unityweb" as="script">
   <link rel="preload" href="Build/g2.wasm.unityweb" as="fetch" type="application/wasm" crossorigin>
   <title>Greedy</title>
-  <script>
-    // Function to notify Unity of the minimize/restore state and connection status
-    function sendEventToUnity(eventType) {
-       // console.log("Sending event to Unity: " + eventType);
-        var unityInstance = window.unityInstance;
-        if (unityInstance) {
-            unityInstance.SendMessage('MinimizeRestoreHandler', 'OnBrowserMinimizeRestore', eventType);
-        } else {
-           // console.log("Unity instance not found.");
-        }
-    }
-
-    document.addEventListener('visibilitychange', function() {
-        if (document.hidden) {
-            sendEventToUnity('minimize');
-        } else {
-            sendEventToUnity('restore');
-        }
-    });
-
-    // Detect when the browser window loses or gains focus
-    // window.addEventListener('blur', function() {
-    //     sendEventToUnity('minimize');
-    // });
-
-    // window.addEventListener('focus', function() {
-    //     sendEventToUnity('restore');
-    // });
-
-    // Detect when the page is hidden or shown
-    window.addEventListener('pagehide', function() {
-        sendEventToUnity('minimize');
-    });
-
-    window.addEventListener('pageshow', function() {
-        sendEventToUnity('restore');
-    });
-
-    // Detect online and offline status
-    window.addEventListener('online', function() {
-        sendEventToUnity('online');
-    });
-
-    window.addEventListener('offline', function() {
-        sendEventToUnity('offline');
-    });
-
-
-</script>
   <style>
     * {
       padding: 0;
@@ -145,7 +96,55 @@
       transition: 400ms linear;
     }
   </style>
- 
+  <script>
+    // Function to notify Unity of the minimize/restore state and connection status
+    function sendEventToUnity(eventType) {
+       // console.log("Sending event to Unity: " + eventType);
+        var unityInstance = window.unityInstance;
+        if (unityInstance) {
+            unityInstance.SendMessage('MinimizeRestoreHandler', 'OnBrowserMinimizeRestore', eventType);
+        } else {
+           // console.log("Unity instance not found.");
+        }
+    }
+
+    document.addEventListener('visibilitychange', function() {
+        if (document.hidden) {
+            sendEventToUnity('minimize');
+        } else {
+            sendEventToUnity('restore');
+        }
+    });
+
+    // Detect when the browser window loses or gains focus
+    // window.addEventListener('blur', function() {
+    //     sendEventToUnity('minimize');
+    // });
+
+    // window.addEventListener('focus', function() {
+    //     sendEventToUnity('restore');
+    // });
+
+    // Detect when the page is hidden or shown
+    window.addEventListener('pagehide', function() {
+        sendEventToUnity('minimize');
+    });
+
+    window.addEventListener('pageshow', function() {
+        sendEventToUnity('restore');
+    });
+
+    // Detect online and offline status
+    window.addEventListener('online', function() {
+        sendEventToUnity('online');
+    });
+
+    window.addEventListener('offline', function() {
+        sendEventToUnity('offline');
+    });
+
+
+</script>
 </head>
 
 <body>
