@@ -4,10 +4,6 @@
 <head>
   <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <!-- Start loading assets right away, to have them (partly) loaded already when they are requested -->
-  <link rel="preload" href="Build/g2.data.unityweb" as="fetch" type="application/octet-stream" crossorigin>
-  <link rel="preload" href="Build/g2.framework.js.unityweb" as="script">
-  <link rel="preload" href="Build/g2.wasm.unityweb" as="fetch" type="application/wasm" crossorigin>
   <title>Greedy</title>
   <style>
     * {
@@ -157,62 +153,14 @@
       <div id="unity-loading-bar-inner"></div>
     </div>
   </div>
-  <script src="Build/g2.loader.js"></script>
-  <script>
-    // Function to notify Unity of the minimize/restore state and connection status
-    function sendEventToUnity(eventType) {
-        //console.log("Sending event to Unity: " + eventType);
-        var unityInstance = window.unityInstance;
-        if (unityInstance) {
-            unityInstance.SendMessage('MinimizeRestoreHandler', 'OnBrowserMinimizeRestore', eventType);
-        } else {
-          // console.log("Unity instance not found.");
-        }
-    }
-
-    // Detect when the page becomes visible or hidden
-    document.addEventListener('visibilitychange', function() {
-        if (document.hidden) {
-            sendEventToUnity('minimize');
-        } else {
-            sendEventToUnity('restore');
-        }
-    });
-
-    // Detect when the browser window loses or gains focus
-    // window.addEventListener('blur', function() {
-    //     sendEventToUnity('minimize');
-    // });
-
-     window.addEventListener('focus', function() {
-         sendEventToUnity('restore');
-     });
-
-    // Detect when the page is hidden or shown
-    window.addEventListener('pagehide', function() {
-        sendEventToUnity('minimize');
-    });
-
-    window.addEventListener('pageshow', function() {
-        sendEventToUnity('restore');
-    });
-
-    // Detect online and offline status
-    window.addEventListener('online', function() {
-        sendEventToUnity('online');
-    });
-
-    window.addEventListener('offline', function() {
-        sendEventToUnity('offline');
-    });
-</script>
+  <script src="Build/g3.loader.js"></script>
   <script>
     var buildUrl = "Build";
-    var loaderUrl = buildUrl + "/g2.loader.js";
+    var loaderUrl = buildUrl + "/g3.loader.js";
     var config = {
-      dataUrl: buildUrl + "/g2.data.unityweb",
-      frameworkUrl: buildUrl + "/g2.framework.js.unityweb",
-      codeUrl: buildUrl + "/g2.wasm.unityweb",
+      dataUrl: buildUrl + "/g3.data.unityweb",
+      frameworkUrl: buildUrl + "/g3.framework.js.unityweb",
+      codeUrl: buildUrl + "/g3.wasm.unityweb",
       streamingAssetsUrl: "StreamingAssets",
       companyName: "KhalifaTech",
       productName: "Greedy",
