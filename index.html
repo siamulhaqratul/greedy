@@ -5,9 +5,9 @@
   <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <!-- Start loading assets right away, to have them (partly) loaded already when they are requested -->
-  <link rel="preload" href="Build/g7.data.unityweb" as="fetch" type="application/octet-stream" crossorigin>
-  <link rel="preload" href="Build/g7.framework.js.unityweb" as="script">
-  <link rel="preload" href="Build/g7.wasm.unityweb" as="fetch" type="application/wasm" crossorigin>
+  <link rel="preload" href="Build/g8.data.unityweb" as="fetch" type="application/octet-stream" crossorigin>
+  <link rel="preload" href="Build/g8.framework.js.unityweb" as="script">
+  <link rel="preload" href="Build/g8.wasm.unityweb" as="fetch" type="application/wasm" crossorigin>
   <title>Greedy</title>
   <style>
     * {
@@ -157,14 +157,14 @@
       <div id="unity-loading-bar-inner"></div>
     </div>
   </div>
-  <script src="Build/g7.loader.js"></script>
+  <script src="Build/g8.loader.js"></script>
   <script>
     var buildUrl = "Build";
-    var loaderUrl = buildUrl + "/g7.loader.js";
+    var loaderUrl = buildUrl + "/g8.loader.js";
     var config = {
-      dataUrl: buildUrl + "/g7.data.unityweb",
-      frameworkUrl: buildUrl + "/g7.framework.js.unityweb",
-      codeUrl: buildUrl + "/g7.wasm.unityweb",
+      dataUrl: buildUrl + "/g8.data.unityweb",
+      frameworkUrl: buildUrl + "/g8.framework.js.unityweb",
+      codeUrl: buildUrl + "/g8.wasm.unityweb",
       streamingAssetsUrl: "StreamingAssets",
       companyName: "KhalifaTech",
       productName: "Greedy",
